@@ -39,38 +39,44 @@ if(len(plain_pairs) * 2 <len(plain)):
     plain_pairs.append(plain[- 1]+'x')
 
 # encyption
-cipher = ""
-for pair in plain_pairs:
-    pair_handled = False
-    # letters in same row
-    for row in range(0,5):
-        current_row = matrix[row, :]
-        if(pair[0] in current_row and pair[1] in current_row):
-            first_index = list(current_row).index(pair[0])
-            second_index = list(current_row).index(pair[1])
-            cipher += matrix[row, (first_index+1) % 5]
-            cipher += matrix[row, (second_index+1) % 5]
-            pair_handled = True
-            break
+def playfair_enc():
+    cipher = ""
+    for pair in plain_pairs:
+        pair_handled = False
+        # letters in same row
+        for row in range(0,5):
+            current_row = matrix[row, :]
+            if(pair[0] in current_row and pair[1] in current_row):
+                first_index = list(current_row).index(pair[0])
+                second_index = list(current_row).index(pair[1])
+                cipher += matrix[row, (first_index+1) % 5]
+                cipher += matrix[row, (second_index+1) % 5]
+                pair_handled = True
+                break
 
-    if pair_handled:
-        continue
+        if pair_handled:
+            continue
 
-    # letters in the same column
-    for col in range(0,5):
-        current_col = matrix[:, col]
-        if(pair[0] in current_col and pair[1] in current_col):
-            first_index = list(current_col).index(pair[0])
-            second_index = list(current_col).index(pair[1])
-            cipher += matrix[(first_index+1) % 5, col]
-            cipher += matrix[(second_index+1) % 5, col]
-            pair_handled = True
-            break
+        # letters in the same column
+        for col in range(0,5):
+            current_col = matrix[:, col]
+            if(pair[0] in current_col and pair[1] in current_col):
+                first_index = list(current_col).index(pair[0])
+                second_index = list(current_col).index(pair[1])
+                cipher += matrix[(first_index+1) % 5, col]
+                cipher += matrix[(second_index+1) % 5, col]
+                pair_handled = True
+                break
 
-    if pair_handled:
-        continue
+        if pair_handled:
+            continue
 
-    
-print(matrix)
+        # letters neither in the same column nor row
+        first_letter = np.where(matrix == pair[0])  # returns matrix
+        second_letter = np.where(matrix == pair[1])
 
-## letters in same col
+        cipher += matrix[first_letter[0][0], second_letter[1][0]]
+        cipher += matrix[second_letter[0][0], first_letter[1][0]]
+    print(cipher)
+
+# Decryption
