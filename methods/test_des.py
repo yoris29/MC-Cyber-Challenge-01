@@ -13,7 +13,7 @@ def unpad(data: bytes) -> bytes:
         raise ValueError("Invalid padding")
     return data[:-pad_len]
 
-def encrypt(key: bytes, plaintext: bytes) -> tuple:
+def des_enc(key: bytes, plaintext: bytes) -> tuple:
     """
     Encrypt plaintext using DES in CBC mode.
     Returns (iv, ciphertext).
@@ -23,7 +23,7 @@ def encrypt(key: bytes, plaintext: bytes) -> tuple:
     ciphertext = cipher.encrypt(padded_text)
     return cipher.iv, ciphertext
 
-def decrypt(key: bytes, iv: bytes, ciphertext: bytes) -> bytes:
+def des_dec(key: bytes, iv: bytes, ciphertext: bytes) -> bytes:
     """
     Decrypt ciphertext using DES in CBC mode.
     Returns original plaintext after unpadding.
@@ -39,8 +39,8 @@ if __name__ == "__main__":
 
     print("Original:", data)
 
-    iv, ciphertext = encrypt(key, data)
+    iv, ciphertext = des_enc(key, data)
     print("Encrypted (hex):", ciphertext.hex())
 
-    decrypted = decrypt(key, iv, ciphertext)
+    decrypted = des_dec(key, iv, ciphertext)
     print("Decrypted:", decrypted)

@@ -1,12 +1,12 @@
 from Crypto.Cipher import AES
 from secrets import token_bytes
 
-def encrypt(key: bytes, plaintext: bytes) -> tuple:
+def aes_enc(key: bytes, plaintext: bytes) -> tuple:
     cipher = AES.new(key, AES.MODE_EAX)
     ciphertext, tag = cipher.encrypt_and_digest(plaintext)
     return cipher.nonce, ciphertext, tag
 
-def decrypt(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) -> bytes:
+def aes_dec(key: bytes, nonce: bytes, ciphertext: bytes, tag: bytes) -> bytes:
     cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)
     plaintext = cipher.decrypt_and_verify(ciphertext, tag)
     return plaintext
@@ -17,8 +17,8 @@ if __name__ == "__main__":
 
     print("Original:", data)
 
-    nonce, ciphertext, tag = encrypt(key, data)
+    nonce, ciphertext, tag = aes_enc(key, data)
     print("Encrypted:", ciphertext.hex())
 
-    decrypted = decrypt(key, nonce, ciphertext, tag)
+    decrypted = aes_dec(key, nonce, ciphertext, tag)
     print("Decrypted:", decrypted)
