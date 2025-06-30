@@ -1,4 +1,4 @@
-# Functionnality
+# Diffie Hellman Implementation
 
 - To test the diffie hellman implementation you have to run these following commands inside different shells
 
