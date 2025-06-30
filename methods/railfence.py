@@ -1,20 +1,18 @@
 import numpy as np
 
-key = 4312567
-plain = "attack postponed to two am"
-plain = plain.replace(" ", "")
-key_list = [int(i) for i in str(key)]
-sorted_key = [int(i) for i in str(key)]
-sorted_key.sort()
-
-remainder = len(plain) % len(key_list)
-if(remainder > 0):
-    nb_letters_to_add = len(key_list) - remainder
-
-    for i in range(123 - nb_letters_to_add, 123):
-        plain += chr(i)
 
 def railfence_enc(key,plain):
+    plain = plain.replace(" ", "")
+    key_list = [int(i) for i in str(key)]
+    sorted_key = [int(i) for i in str(key)]
+    sorted_key.sort()
+    remainder = len(plain) % len(key_list)
+    if(remainder > 0):
+        nb_letters_to_add = len(key_list) - remainder
+
+        for i in range(123 - nb_letters_to_add, 123):
+            plain += chr(i)
+
     cipher = ""
     cols = len(key_list)
     rows = len(plain) // cols
@@ -42,4 +40,5 @@ def railfence_dec(key, cipher):
     plaintext = "".join(dec_matrix.flatten())
     return plaintext
 
-print(railfence_dec(key, "ttovaptwtstuaodmcowxknoypeaz"))
+if __name__ == "__main__":
+    print(railfence_dec(5352, "ttovaptwtstuaodmcowxknoypeaz"))

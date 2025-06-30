@@ -20,9 +20,10 @@ def rc4(data, key):
 
     return ''.join(out)
 
-plaintext = "attack at dawn"
-key = "secret"
-
-cipher = rc4(plaintext, key)
-print(rc4(plaintext, key))
-print(rc4(cipher, key))
+if __name__ == "__main__":
+    plaintext = "attack at dawn"
+    key = "secret"
+    
+    cipher = rc4(plaintext, key)
+    print(rc4(plaintext, key))
+    print(rc4(cipher, key))

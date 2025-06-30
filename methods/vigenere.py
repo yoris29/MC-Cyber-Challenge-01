@@ -37,10 +37,10 @@ def vigenere_dec(cipher, key):
             result += i 
     return result
 
-
-plain = "sUp MaN"
-cipher = "Rijvs"
-key = "key"
-
-print(vigenere_enc(plain, key))
-print(vigenere_dec(cipher, key))
+if __name__ == "__main__":
+    plain = "sUp MaN"
+    cipher = "Rijvs"
+    key = "key"
+    
+    print(vigenere_enc(plain, key))
+    print(vigenere_dec(cipher, key))

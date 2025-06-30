@@ -1,23 +1,7 @@
 import numpy as np
 import string
 
-key = "playfair"
-plain = "hello"
-cipher_input = "kgyvrv"
 
-key_final = ""
-for char in key:
-    if char not in key_final:
-        key_final += char
-
-matrix_list = [char for char in key_final]
-for char in string.ascii_lowercase:
-    if char == 'j':
-        continue
-    if char not in matrix_list:
-        matrix_list.append(char)
-
-matrix = np.array(matrix_list).reshape(5, 5)
 
 def text_to_pairs(text):
     text = text.lower().replace(" ", "").replace("j", "i")
@@ -36,6 +20,21 @@ def text_to_pairs(text):
 
 
 def playfair_enc(plain_text, key):
+    key_final = ""
+    for char in key:
+        if char not in key_final:
+            key_final += char
+
+    matrix_list = [char for char in key_final]
+    for char in string.ascii_lowercase:
+        if char == 'j':
+            continue
+        if char not in matrix_list:
+            matrix_list.append(char)
+
+    matrix = np.array(matrix_list).reshape(5, 5)
+
+
     cipher = ""
     pairs = text_to_pairs(plain_text)
     for pair in pairs:
@@ -66,10 +65,23 @@ def playfair_enc(plain_text, key):
         r2, c2 = np.where(matrix == pair[1])
         cipher += matrix[r1[0], c2[0]]
         cipher += matrix[r2[0], c1[0]]
-    print("Encrypted:", cipher)
     return cipher
 
 def playfair_dec(cipher_text, key):
+    key_final = ""
+    for char in key:
+        if char not in key_final:
+            key_final += char
+
+    matrix_list = [char for char in key_final]
+    for char in string.ascii_lowercase:
+        if char == 'j':
+            continue
+        if char not in matrix_list:
+            matrix_list.append(char)
+
+    matrix = np.array(matrix_list).reshape(5, 5)
+
     decrypted = ""
     cipher_pairs = text_to_pairs(cipher_text)
     for pair in cipher_pairs:
@@ -100,8 +112,9 @@ def playfair_dec(cipher_text, key):
         r2, c2 = np.where(matrix == pair[1])
         decrypted += matrix[r1[0], c2[0]]
         decrypted += matrix[r2[0], c1[0]]
-    print("Decrypted:", decrypted)
+    return decrypted
 
 
-cipher = playfair_enc(plain, key)
-playfair_dec(cipher, key)
+if __name__ == "__main__":
+    cipher = playfair_enc("hello", "sup")
+    playfair_dec("sh", "sup")

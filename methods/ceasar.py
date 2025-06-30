@@ -28,9 +28,10 @@ def ceasar_dec(cipher, key):
     return result
 
 
-text = "Hello"
-cipher = "Khoor"
-key = 3
+if __name__ == "__main__":
+    text = "Hello"
+    cipher = "Khoor"
+    key = 3
 
-print(ceasar_enc(cipher, key))
-print(ceasar_dec(cipher, key))
+    # print(ceasar_enc(text, key))
+    # print(ceasar_dec(cipher, key))

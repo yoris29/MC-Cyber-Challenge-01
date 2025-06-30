@@ -30,7 +30,7 @@ def rsa_enc(m, e,p, q):
 
     return pow(m, e, n)
 
-def rsa_dec(c, p, q, e):
+def rsa_dec(c, e, p, q):
     if not (est_premier(p) and est_premier(q)):
         return "p et q doivent être premiers et distincts"
     if p == q:
@@ -45,12 +45,13 @@ def rsa_dec(c, p, q, e):
     m = pow(c, d, n)
 
     return chr(m)
-     
-c= 2790
-p = 61
-q = 53
-e = 17
-m = 65
 
-# print(rsa_enc(m, e,p, q))
-# print(rsa_dec(c, p, q, e))
+if __name__ == "__main__":     
+    c= 2790
+    p = 61
+    q = 53
+    e = 17
+    m = 65
+    
+    # print(rsa_enc(m, e,p, q))
+    # print(rsa_dec(c, p, q, e))
